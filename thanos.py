@@ -16,15 +16,19 @@
 
 import os, random
 
-#Subdirectory names are put into an array.
-directnames = [name for name in os.listdir('.') if os.path.isdir(name)]
-direct = len(directnames)
-
 #This method performs a Thanos snap (deletes half of the files) in the directory specified.
-def snapFiles(directory):
+def snapFiles(directory, pname):
+	pathname = pname
+	pathname += directory+"/"
+
+
 	#File names are put into an array.
-	filenames = [name for name in os.listdir(directory) if os.path.isfile(directory + "/" + name)]
+	filenames = [name for name in os.listdir(pathname) if os.path.isfile(pathname+name)]
 	files = len(filenames)
+	
+	#Subdirectory names are put into an array.
+	directnames = [name for name in os.listdir(pathname) if os.path.isdir(pathname+name)]
+	direct = len(directnames)
 
 	#While loop deletes one file at a time until half remain.
 	half = files/2
@@ -33,17 +37,23 @@ def snapFiles(directory):
 		ran = random.randint(0,files-1)
 		#If statement prevents Thanos from deleting itself
 		if filenames[ran] != "thanos.py":
-			if os.path.exists(directory + "/" + filenames[ran]):
+			if os.path.exists(pathname + filenames[ran]):
 				print "Removing: " + filenames[ran]
 				
 				#Uncomment the line below if you wish to delete your files
-				os.remove(directory + "/" + filenames[ran])
+				os.remove(pathname + filenames[ran])
 				
 				half = half-1
-	print "Removed half of files from folder: " + directory
+	print "Removed half of files from folder: " + pathname + "\n"
+	
+	if direct > 0:
+		for d in directnames:
+			if d != ".git":
+				snapFiles(d, pathname)
+	else:
+		pathname = ""
+		
+#Thanos snap is performed on main directory
+snapFiles('.', "")
 
-#Thanos snap is performed on main directory and then subdirectories
-snapFiles('.')
-for d in directnames:
-	if d != ".git":
-		snapFiles(d)
+#End of Program
