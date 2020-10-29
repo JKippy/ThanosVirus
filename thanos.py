@@ -4,7 +4,6 @@ import os, random
 files = len([name for name in os.listdir('.') if os.path.isfile(name)])
 names = [name for name in os.listdir('.') if os.path.isfile(name)]
 
-print names
 half = files/2
 while half > 0:
 	ran = random.randint(0,files-1)
