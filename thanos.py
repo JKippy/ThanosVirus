@@ -4,15 +4,14 @@
 #Author: Jason Kaip
 #CIS 458(01)
 
-#Description: This program deletes half of the files in the directory it is ran in and
-#then in each subdirectory.
+#Description: This program deletes half of the files in the entire directory it is ran in.
 
 #Disclaimer: Author does not take responsibility for any damages caused by this
 #program. This was made for strictly educational purposes. Use with caution.
 
 #Important: The statement that deletes the files is commented out at first for safety.
 #Uncomment the statement if you wish to run the full program- otherwise, the program will
-#only print out what files it would have deleted.
+#print out what files it would have deleted.
 
 import os, random
 
@@ -39,13 +38,15 @@ def snapFiles(directory, pname):
 		if filenames[ran] != "thanos.py":
 			if os.path.exists(pathname + filenames[ran]):
 				print "Removing: " + filenames[ran]
-				
+				#####
 				#Uncomment the line below if you wish to delete your files
-				os.remove(pathname + filenames[ran])
-				
+				#os.remove(pathname + filenames[ran])
+				#####
 				half = half-1
-	print "Removed half of files from folder: " + pathname + "\n"
+				
+	print "Removed half of files from path: " + pathname + "\n"
 	
+	#Program recursively goes through each subdirectory and repeats the process
 	if direct > 0:
 		for d in directnames:
 			if d != ".git":
