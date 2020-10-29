@@ -7,8 +7,8 @@
 #Description: This program deletes half of the files in the directory it is ran in and
 #then in each subdirectory.
 
-#Disclaimer: I do not take responsibility for any damages caused by this program. This was
-#made for strictly educational purposes. Use with caution.
+#Disclaimer: Author does not take responsibility for any damages caused by this
+#program. This was made for strictly educational purposes. Use with caution.
 
 #Important: The statement that deletes the files is commented out at first for safety.
 #Uncomment the statement if you wish to run the full program- otherwise, the program will
@@ -23,7 +23,7 @@ direct = len(directnames)
 #This method performs a Thanos snap (deletes half of the files) in the directory specified.
 def snapFiles(directory):
 	#File names are put into an array.
-	filenames = [name for name in os.listdir(directory) if os.path.isfile(name)]
+	filenames = [name for name in os.listdir(directory) if os.path.isfile(directory + "/" + name)]
 	files = len(filenames)
 
 	#While loop deletes one file at a time until half remain.
@@ -33,11 +33,11 @@ def snapFiles(directory):
 		ran = random.randint(0,files-1)
 		#If statement prevents Thanos from deleting itself
 		if filenames[ran] != "thanos.py":
-			if os.path.exists(filenames[ran]):
+			if os.path.exists(directory + "/" + filenames[ran]):
 				print "Removing: " + filenames[ran]
 				
 				#Uncomment the line below if you wish to delete your files
-				#os.remove(filenames[ran])
+				os.remove(directory + "/" + filenames[ran])
 				
 				half = half-1
 	print "Removed half of files from folder: " + directory
