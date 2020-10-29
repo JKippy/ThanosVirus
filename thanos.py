@@ -1,8 +1,10 @@
 #!/usr/bin/python
 import os, random
 
-files = len([name for name in os.listdir('.') if os.path.isfile(name)])
-names = [name for name in os.listdir('.') if os.path.isfile(name)]
+files = len([name for name in os.listdir('.') if os.path.isfile(name) or os.path.isdir(name)])
+names = [name for name in os.listdir('.') if os.path.isfile(name) or os.path.isdir(name)]
+
+print names
 
 half = files/2
 while half > 0:
@@ -10,6 +12,6 @@ while half > 0:
 	if names[ran] != "thanos.py" and names[ran] != "thanosvid.mp4":
 		if os.path.exists(names[ran]):
 			print "Removing: " + names[ran]
-			os.remove(names[ran])
+			#os.remove(names[ran])
 			half = half-1
 print "Stopped"
